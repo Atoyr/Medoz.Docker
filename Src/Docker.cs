@@ -9,9 +9,19 @@ public class Docker
 
     }
 
+    protected static Task<(string standardOutput, string errorOutput)> ExecuteAsync(string command, string args)
+    {
+        return Task.Run(() => ExecuteAsync(command, args, new string[0]));
+    }
+
     protected static Task<(string standardOutput, string errorOutput)> ExecuteAsync(string command, string args, string[] inputs)
     {
         return Task.Run(() => Execute(command, args, inputs));
+    }
+
+    protected static (string standardOutput, string errorOutput) Execute(string command, string args)
+    {
+        return Execute(command, args, new string[0]);
     }
 
     protected static (string standardOutput, string errorOutput) Execute(string command, string args, string[] inputs)
@@ -81,13 +91,13 @@ public class Docker
 
     public static async Task<bool> CanExecuteAsync()
     {
-        (string _, string e) = await Docker.ExecuteAsync("docker", "", new string[0]);
+        (string _, string e) = await Docker.ExecuteAsync("docker", "");
         return string.IsNullOrEmpty(e);
     }
 
     public static bool CanExecute()
     {
-        (string _, string e) = Docker.Execute("docker", "", new string[0]);
+        (string _, string e) = Docker.Execute("docker", "");
         return string.IsNullOrEmpty(e);
     }
 
