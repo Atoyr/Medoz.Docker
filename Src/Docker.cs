@@ -2,9 +2,9 @@
 
 namespace Medoz.Docker;
 
-public class Process
+public class Docker
 {
-    public Process()
+    private Docker()
     {
 
     }
@@ -79,12 +79,17 @@ public class Process
         return (so.ToString(), eo.ToString());
     }
 
-    public static async Task<bool> HasDocker()
+    public static async Task<bool> CanExecuteAsync()
     {
         (string _, string e) = await Process.ExecuteAsync("docker", "", new string[0]);
         return string.IsNullOrEmpty(e);
     }
 
+    public static bool CanExecute()
+    {
+        (string _, string e) = Process.Execute("docker", "", new string[0]);
+        return string.IsNullOrEmpty(e);
+    }
 
     // public async Task<(string standardOutput, string errorOutput)> Pull(string imageName)
     // {
