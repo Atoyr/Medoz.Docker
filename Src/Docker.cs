@@ -81,13 +81,13 @@ public class Docker
 
     public static async Task<bool> CanExecuteAsync()
     {
-        (string _, string e) = await Process.ExecuteAsync("docker", "", new string[0]);
+        (string _, string e) = await Docker.ExecuteAsync("docker", "", new string[0]);
         return string.IsNullOrEmpty(e);
     }
 
     public static bool CanExecute()
     {
-        (string _, string e) = Process.Execute("docker", "", new string[0]);
+        (string _, string e) = Docker.Execute("docker", "", new string[0]);
         return string.IsNullOrEmpty(e);
     }
 
