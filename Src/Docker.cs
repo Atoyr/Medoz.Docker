@@ -101,6 +101,34 @@ public class Docker
         return string.IsNullOrEmpty(e);
     }
 
+    public static IEnumerable<Image> ImageList()
+    {
+        (string o, string e) = Docker.Execute("docker", "image ls", new string[0]);
+        if (!string.IsNullOrEmpty(e))
+        {
+            throw new Exception(e);
+        }
+        List<Image> images = new();
+        if (string.IsNullOrEmpty(o))
+        {
+            return images;
+        }
+
+        string[] lines = o.Replace("\r\n", "\n").Split(new[]{'\n','\r'});
+
+        int repositoryIndex = 0;
+        int tagIndex = 0;
+        int imageIdIndex = 0;
+        int createdIndex = 0;
+        int sizeIndex = 0;
+        string repositoryHeaderName = "REPOSITORY";
+        string tagHeaderHeaderName = "TAG";
+        string imageIdHeaderName = "IMAGE ID";
+        string createdHeaderName = "CREATED";
+        string sizeHeaderName = "SIZE";
+
+    }
+
     // public async Task<(string standardOutput, string errorOutput)> Pull(string imageName)
     // {
 
