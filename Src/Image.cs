@@ -13,4 +13,6 @@ public class Image
     public string ImageId { set; get; }
     public string Created { set; get; }
     public string Size { set; get; }
+
+    public override string ToString() => $"Repository : {Repository} , Tag : {Tag} , Image Id : {ImageId} , Created : {Created} , Size : {Size}";
 }

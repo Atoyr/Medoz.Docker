@@ -95,12 +95,6 @@ public class Docker
         return string.IsNullOrEmpty(e);
     }
 
-    public static bool CanExecute()
-    {
-        (string _, string e) = Docker.Execute("docker", "");
-        return string.IsNullOrEmpty(e);
-    }
-
     public static IEnumerable<Image> ImageList()
     {
         (string o, string e) = Docker.Execute("docker", "image ls", new string[0]);
@@ -115,18 +109,34 @@ public class Docker
         }
 
         string[] lines = o.Replace("\r\n", "\n").Split(new[]{'\n','\r'});
+        if(lines.Length < 2)
+        {
+            return images;
+        }
 
-        int repositoryIndex = 0;
-        int tagIndex = 0;
-        int imageIdIndex = 0;
-        int createdIndex = 0;
-        int sizeIndex = 0;
         string repositoryHeaderName = "REPOSITORY";
         string tagHeaderHeaderName = "TAG";
         string imageIdHeaderName = "IMAGE ID";
         string createdHeaderName = "CREATED";
         string sizeHeaderName = "SIZE";
+        int repositoryIndex = lines[0].IndexOf(repositoryHeaderName);
+        int tagIndex = lines[0].IndexOf(tagHeaderHeaderName);
+        int imageIdIndex = lines[0].IndexOf(imageIdHeaderName);
+        int createdIndex = lines[0].IndexOf(createdHeaderName);
+        int sizeIndex = lines[0].IndexOf(sizeHeaderName);
 
+        for(int i = 1; i < lines.Length; i++)
+        {
+            Image image = new();
+            image.Repository = lines[i].Substring(repositoryIndex, tagIndex - 1).Trim();
+            image.Tag = lines[i].Substring(tagIndex, imageIdIndex - 1).Trim();
+            image.ImageId = lines[i].Substring(imageIdIndex, createdIndex - 1).Trim();
+            image.Created = lines[i].Substring(createdIndex, sizeIndex - 1).Trim();
+            image.Size = lines[i].Substring(sizeIndex).Trim();
+            images.Add(image);
+        }
+
+        return images;
     }
 
     // public async Task<(string standardOutput, string errorOutput)> Pull(string imageName)
