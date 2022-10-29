@@ -127,11 +127,12 @@ public class Docker
 
         for(int i = 1; i < lines.Length; i++)
         {
+            if (string.IsNullOrEmpty(lines[i])) continue;
             Image image = new();
-            image.Repository = lines[i].Substring(repositoryIndex, tagIndex - 1).Trim();
-            image.Tag = lines[i].Substring(tagIndex, imageIdIndex - 1).Trim();
-            image.ImageId = lines[i].Substring(imageIdIndex, createdIndex - 1).Trim();
-            image.Created = lines[i].Substring(createdIndex, sizeIndex - 1).Trim();
+            image.Repository = lines[i].Substring(repositoryIndex, tagIndex - repositoryIndex - 1).Trim();
+            image.Tag = lines[i].Substring(tagIndex, imageIdIndex - tagIndex - 1).Trim();
+            image.ImageId = lines[i].Substring(imageIdIndex, createdIndex - imageIdIndex - 1).Trim();
+            image.Created = lines[i].Substring(createdIndex, sizeIndex - createdIndex - 1).Trim();
             image.Size = lines[i].Substring(sizeIndex).Trim();
             images.Add(image);
         }
