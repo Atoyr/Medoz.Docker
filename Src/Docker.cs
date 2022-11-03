@@ -114,30 +114,37 @@ public class Docker
             return images;
         }
 
-        string repositoryHeaderName = "REPOSITORY";
-        string tagHeaderHeaderName = "TAG";
-        string imageIdHeaderName = "IMAGE ID";
-        string createdHeaderName = "CREATED";
-        string sizeHeaderName = "SIZE";
-        int repositoryIndex = lines[0].IndexOf(repositoryHeaderName);
-        int tagIndex = lines[0].IndexOf(tagHeaderHeaderName);
-        int imageIdIndex = lines[0].IndexOf(imageIdHeaderName);
-        int createdIndex = lines[0].IndexOf(createdHeaderName);
-        int sizeIndex = lines[0].IndexOf(sizeHeaderName);
+        Spliter sp = new();
+        sp.AddWord("REPOSITORY");
+        sp.AddWord("TAG");
+        sp.AddWord("IMAGE ID");
+        sp.AddWord("CREATED");
+        sp.AddWord("SIZE");
+        sp.SetHeader(lines[0]);
 
         for(int i = 1; i < lines.Length; i++)
         {
             if (string.IsNullOrEmpty(lines[i])) continue;
             Image image = new();
-            image.Repository = lines[i].Substring(repositoryIndex, tagIndex - repositoryIndex - 1).Trim();
-            image.Tag = lines[i].Substring(tagIndex, imageIdIndex - tagIndex - 1).Trim();
-            image.ImageId = lines[i].Substring(imageIdIndex, createdIndex - imageIdIndex - 1).Trim();
-            image.Created = lines[i].Substring(createdIndex, sizeIndex - createdIndex - 1).Trim();
-            image.Size = lines[i].Substring(sizeIndex).Trim();
+            IEnnumerable<string> data = sp.Split(lines[i]);
+
+            if(data.Length == 5)
+            {
+                image.Repository = data[0];
+                image.Tag = data[1];
+                image.ImageId = data[2];
+                image.Created = data[3];
+                image.Size = data[4];
+            }
             images.Add(image);
         }
 
         return images;
+    }
+
+    public static IEnumerable<string> ProcessList()
+    {
+
     }
 
     // public async Task<(string standardOutput, string errorOutput)> Pull(string imageName)
