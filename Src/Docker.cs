@@ -95,58 +95,58 @@ public class Docker
         return string.IsNullOrEmpty(e);
     }
 
-    public static IEnumerable<Image> ImageList()
-    {
-        (string o, string e) = Docker.Execute("docker", "image ls", new string[0]);
-        if (!string.IsNullOrEmpty(e))
-        {
-            throw new Exception(e);
-        }
-        List<Image> images = new();
-        if (string.IsNullOrEmpty(o))
-        {
-            return images;
-        }
-
-        string[] lines = o.Replace("\r\n", "\n").Split(new[]{'\n','\r'});
-        if(lines.Length < 2)
-        {
-            return images;
-        }
-
-        Spliter sp = new();
-        sp.AddWord("REPOSITORY");
-        sp.AddWord("TAG");
-        sp.AddWord("IMAGE ID");
-        sp.AddWord("CREATED");
-        sp.AddWord("SIZE");
-        sp.SetHeader(lines[0]);
-
-        for(int i = 1; i < lines.Length; i++)
-        {
-            if (string.IsNullOrEmpty(lines[i])) continue;
-            Image image = new();
-            IEnnumerable<string> data = sp.Split(lines[i]);
-
-            if(data.Length == 5)
-            {
-                image.Repository = data[0];
-                image.Tag = data[1];
-                image.ImageId = data[2];
-                image.Created = data[3];
-                image.Size = data[4];
-            }
-            images.Add(image);
-        }
-
-        return images;
-    }
-
-    public static IEnumerable<string> ProcessList()
-    {
-
-    }
-
+//     public static IEnumerable<Image> ImageList()
+//     {
+//         (string o, string e) = Docker.Execute("docker", "image ls", new string[0]);
+//         if (!string.IsNullOrEmpty(e))
+//         {
+//             throw new Exception(e);
+//         }
+//         List<Image> images = new();
+//         if (string.IsNullOrEmpty(o))
+//         {
+//             return images;
+//         }
+// 
+//         string[] lines = o.Replace("\r\n", "\n").Split(new[]{'\n','\r'});
+//         if(lines.Length < 2)
+//         {
+//             return images;
+//         }
+// 
+//         Spliter sp = new();
+//         sp.AddWord("REPOSITORY");
+//         sp.AddWord("TAG");
+//         sp.AddWord("IMAGE ID");
+//         sp.AddWord("CREATED");
+//         sp.AddWord("SIZE");
+//         sp.SetHeader(lines[0]);
+// 
+//         for(int i = 1; i < lines.Length; i++)
+//         {
+//             if (string.IsNullOrEmpty(lines[i])) continue;
+//             Image image = new();
+//             IEnnumerable<string> data = sp.Split(lines[i]);
+// 
+//             if(data.Length == 5)
+//             {
+//                 image.Repository = data[0];
+//                 image.Tag = data[1];
+//                 image.ImageId = data[2];
+//                 image.Created = data[3];
+//                 image.Size = data[4];
+//             }
+//             images.Add(image);
+//         }
+// 
+//         return images;
+//     }
+// 
+//     public static IEnumerable<string> ProcessList()
+//     {
+// 
+//     }
+// 
     // public async Task<(string standardOutput, string errorOutput)> Pull(string imageName)
     // {
 

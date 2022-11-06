@@ -2,7 +2,8 @@
 using Medoz.Docker;
 Console.WriteLine("Hello, World!");
 
-foreach( var i in Docker.ImageList())
+
+foreach( var i in Image.ImagesAsync().Result)
 {
     Console.WriteLine(i.ToString());
 }

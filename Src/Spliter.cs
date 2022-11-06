@@ -1,6 +1,3 @@
-using System;
-using System.Linq;
-
 namespace Medoz.Docker;
 
 public class Spliter
@@ -9,12 +6,12 @@ public class Spliter
     private List<int> _indexes = new();
     public Spliter() { }
 
-    public Spliter(IEnmuerable<string> words)
+    public Spliter(IEnumerable<string> words)
     {
         _words.AddRange(words);
     }
 
-    public Spliter(IEnmuerable<string> words, string header)
+    public Spliter(IEnumerable<string> words, string header)
     {
         _words.AddRange(words);
         SetHeader(header);
@@ -49,13 +46,13 @@ public class Spliter
     public IEnumerable<string> Split(string text)
     {
         List<string> split = new();
-        if(_indexes.Length == 0) 
+        if(_indexes.Count() == 0) 
         {
             return split;
         }
-        for(int i = 0; i < _indexes.Length - 1; i++)
+        for(int i = 0; i < _indexes.Count() - 1; i++)
         {
-            split.Add(text.Substring(_indexes[i], _indexes[i + 1] - _indexes[i] - 1).Trim();
+            split.Add(text.Substring(_indexes[i], _indexes[i + 1] - _indexes[i] - 1).Trim());
         }
         split.Add(text.Substring(_indexes.Last()));
         return split;

@@ -2,10 +2,7 @@
 // Released under the MIT license
 // https://github.com/Cysharp/ProcessX/blob/master/LICENSE
 
-using System;
 using System.Text;
-using System.Linq;
-using System.Collections.Generic;
 using System.Diagnostics;
 using System.Threading.Channels;
 
