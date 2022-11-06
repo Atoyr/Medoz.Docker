@@ -12,7 +12,7 @@ public class Image
     {
         List<Image> images = new();
 
-        await foreach(string item in ProcessExecutor.ExecuteAsync("docker images --format \"{{.ID}}\\t{{.Repository}}\\t{{.Tag}}\\t{{.Digest}}\\t{{.CreatedSince}}\\t{{CreatedAt}}\\t{{.Size}}\""))
+        await foreach(string item in ProcessExecutor.ExecuteAsync("docker images --format \"{{.ID}}\\t{{.Repository}}\\t{{.Tag}}\\t{{.Digest}}\\t{{.CreatedSince}}\\t{{.CreatedAt}}\\t{{.Size}}\""))
         {
             string[] split = item.Split("\t");
             if (split.Length == 7)
