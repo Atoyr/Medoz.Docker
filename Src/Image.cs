@@ -8,6 +8,19 @@ public class Image
     {
     }
 
+    public string Id { set; get; } = string.Empty;
+    public string Repository { set; get; } = string.Empty;
+    public string Tag { set; get; } = string.Empty;
+    public string Digest { set; get; } = string.Empty;
+    public string CreatedSince { set; get; } = string.Empty;
+    public string CreatedAt { set; get; } = string.Empty;
+    public string Size { set; get; } = string.Empty;
+
+    public static IEnumerable<Image> Images()
+    {
+        return Image.ImagesAsync().Result;
+    }
+
     public static async Task<IEnumerable<Image>> ImagesAsync()
     {
         List<Image> images = new();
@@ -18,27 +31,19 @@ public class Image
             if (split.Length == 7)
             {
                 Image image = new();
-                image.Id = split[0];
-                image.Repository = split[1];
-                image.Tag = split[2];
-                image.Digest = split[3];
-                image.CreatedSince = split[4];
-                image.CreatedAt = split[5];
-                image.Size = split[6];
+                image.Id = split[0].Trim();
+                image.Repository = split[1].Trim();
+                image.Tag = split[2].Trim();
+                image.Digest = split[3].Trim();
+                image.CreatedSince = split[4].Trim();
+                image.CreatedAt = split[5].Trim();
+                image.Size = split[6].Trim();
                 images.Add(image);
             }
         }
 
         return images;
     }
-
-    public string Id { set; get; } = string.Empty;
-    public string Repository { set; get; } = string.Empty;
-    public string Tag { set; get; } = string.Empty;
-    public string Digest { set; get; } = string.Empty;
-    public string CreatedSince { set; get; } = string.Empty;
-    public string CreatedAt { set; get; } = string.Empty;
-    public string Size { set; get; } = string.Empty;
 
     public override string ToString() => $"{Id}\t{Repository}\t{Tag}\t{Digest}\t{CreatedAt}\t{Size}";
 }
