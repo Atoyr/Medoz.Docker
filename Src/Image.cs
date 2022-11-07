@@ -45,5 +45,28 @@ public class Image
         return images;
     }
 
+    public static IEnumerable<string> Rmi(string target, bool force = false)
+    {
+        return Image.RmiAsync(target, force).Result;
+    }
+
+    public static async Task<IEnumerable<string>> RmiAsync(string target, bool force = false)
+    {
+        if(target.IndexOf(" ") >= 0)
+        {
+            throw new Exception("target is wrong word");
+        }
+        string command = force ? $"docker rmi -f {target}" : $"docker rmi {target}";
+
+        List<string> ret = new();
+
+        await foreach(string line in ProcessExecutor.ExecuteAsync(command))
+        {
+            ret.Add(line);
+        }
+
+        return ret;
+    }
+
     public override string ToString() => $"{Id}\t{Repository}\t{Tag}\t{Digest}\t{CreatedAt}\t{Size}";
 }
