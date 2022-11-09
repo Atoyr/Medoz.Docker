@@ -2,7 +2,7 @@
 // Released under the MIT license
 // https://github.com/Cysharp/ProcessX/blob/master/LICENSE
 
-namespace Medoz.Docker;
+namespace Medoz.Pmet;
 
 using System.Threading.Channels;
 using System.Diagnostics;

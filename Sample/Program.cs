@@ -1,5 +1,5 @@
 ﻿// See https://aka.ms/new-console-template for more information
-using Medoz.Docker;
+using Medoz.Pmet.Docker;
 Console.WriteLine("Hello, World!");
 
 

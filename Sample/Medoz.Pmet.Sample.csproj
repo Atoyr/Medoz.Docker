@@ -1,7 +1,7 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
   <ItemGroup>
-    <ProjectReference Include="..\Src\Medoz.Docker.csproj" />
+    <ProjectReference Include="..\Src\Medoz.Pmet.csproj" />
   </ItemGroup>
 
   <PropertyGroup>

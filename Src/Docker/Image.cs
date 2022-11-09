@@ -1,6 +1,6 @@
 using System.Collections.Generic;
 
-namespace Medoz.Docker;
+namespace Medoz.Pmet.Docker;
 
 public class Image
 {

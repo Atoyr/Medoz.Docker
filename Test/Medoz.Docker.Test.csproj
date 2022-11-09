@@ -15,7 +15,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Src\Medoz.Docker.csproj" />
+    <ProjectReference Include="..\Src\Medoz.Pmet.csproj" />
   </ItemGroup>
 
 </Project>

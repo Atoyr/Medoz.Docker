@@ -1,6 +1,6 @@
 using System.Text;
 
-namespace Medoz.Docker;
+namespace Medoz.Pmet.Docker;
 
 public class Container
 {

@@ -4,7 +4,7 @@
 
 using System;
 
-namespace Medoz.Docker;
+namespace Medoz.Pmet;
 
 public class ProcessErrorException : Exception
 {

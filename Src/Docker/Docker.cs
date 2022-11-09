@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Medoz.Docker;
+namespace Medoz.Pmet.Docker;
 
 public class Docker
 {

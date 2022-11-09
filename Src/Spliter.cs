@@ -1,4 +1,4 @@
-namespace Medoz.Docker;
+namespace Medoz.Pmet.Docker;
 
 public class Spliter
 {

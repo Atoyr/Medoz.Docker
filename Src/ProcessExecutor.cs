@@ -6,7 +6,7 @@ using System.Text;
 using System.Diagnostics;
 using System.Threading.Channels;
 
-namespace Medoz.Docker;
+namespace Medoz.Pmet;
 
 public static class ProcessExecutor
 {

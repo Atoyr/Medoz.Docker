@@ -1,5 +1,5 @@
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using Medoz.Docker;
+using Medoz.Pmet.Docker;
 
 namespace Medoz.Docker.Test;
 
